@@ -32,10 +32,7 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products);
-
-            //var actual = products.JoeyWhere(p => p.Price > 200 && p.Price < 500);
-            //var actual = products.JoeyWhere( p => p.Price > 200 && p.Price < 500);
+            var actual = products.JoeyWhere(p => p.Price > 200 && p.Price < 500);
 
 
             var expected = new List<Product>
@@ -46,20 +43,6 @@ namespace CSharpAdvanceDesignTests
             };
 
             expected.ToExpectedObject().ShouldMatch(actual);
-        }
-
-        private List<Product> JoeyWhere(List<Product> products)
-        {
-            var result = new List<Product>();
-            foreach (var product in products)
-            {
-                if (product.Price>200 && product.Price<500)
-                {
-                    result.Add(product);
-                }
-            }
-
-            return result;
         }
 
         [Test]
@@ -77,9 +60,9 @@ namespace CSharpAdvanceDesignTests
                 new Product {Id = 8, Cost = 18, Price = 780, Supplier = "Yahoo"}
             };
 
-            var actual = JoeyWhere(products);
+            //var actual = JoeyWhere(products);
 
-            //var actual = products.JoeyWhere(p => p.Price > 200 && p.Price < 500 && p.Cost > 30);
+            var actual = products.JoeyWhere(p => p.Price > 200 && p.Price < 500 && p.Cost > 30);
 
             var expected = new List<Product>
             {
