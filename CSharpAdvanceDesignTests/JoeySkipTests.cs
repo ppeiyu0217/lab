@@ -3,11 +3,11 @@ using Lab.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture]
-    [Ignore("not yet")]
     public class JoeySkipTests
     {
         [Test]
@@ -15,7 +15,7 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = GetEmployees();
 
-            var actual = JoeySelect(employees);
+            var actual = employees.JoeySkip(2);
 
             var expected = new List<Employee>
             {
@@ -24,12 +24,19 @@ namespace CSharpAdvanceDesignTests
                 new Employee {FirstName = "Joseph", LastName = "Yao"},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
-        private IEnumerable<Employee> JoeySelect(IEnumerable<Employee> employees)
+        [Test]
+        public void number_skip_3()
         {
-            throw new System.NotImplementedException();
+            var numbers = new[] {12, 23, 34, 45};
+
+            var actual = numbers.JoeySkip(3);
+
+            var expected = new[] { 45 };
+
+            expected.ToExpectedObject().ShouldMatch(actual);
         }
 
         private static IEnumerable<Employee> GetEmployees()

@@ -26,7 +26,9 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            var actual = JoeySkipWhile(cards);
+            //符合條件之後的都拿，包含自己
+            var actual = JoeySkipWhile(cards,
+                card => card.Kind == CardKind.Separate);
 
             var expected = new List<Card>
             {
@@ -36,12 +38,20 @@ namespace CSharpAdvanceDesignTests
                 new Card {Kind = CardKind.Separate},
             };
 
-            expected.ToExpectedObject().ShouldEqual(actual.ToList());
+            expected.ToExpectedObject().ShouldMatch(actual.ToList());
         }
 
-        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards)
+        private IEnumerable<Card> JoeySkipWhile(IEnumerable<Card> cards, Func<Card, bool> filter)
         {
-            throw new NotImplementedException();
+            var employeesEnumerator = cards.GetEnumerator();
+            while (employeesEnumerator.MoveNext())
+            {
+                var card = employeesEnumerator.Current;
+                if (filter(card))
+                    yield return card;
+                else
+                    yield break;
+            }
         }
     }
 }

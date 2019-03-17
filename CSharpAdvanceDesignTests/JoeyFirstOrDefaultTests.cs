@@ -3,11 +3,11 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
 using System.Collections.Generic;
+using Lab;
 
 namespace CSharpAdvanceDesignTests
 {
     [TestFixture()]
-    [Ignore("not yet")]
     public class JoeyFirstOrDefaultTests
     {
         [Test]
@@ -15,14 +15,29 @@ namespace CSharpAdvanceDesignTests
         {
             var employees = new List<Employee>();
 
-            var actual = JoeyFirstOrDefault(employees);
+            var actual = employees.JoeyFirstOrDefault();
 
             Assert.IsNull(actual);
         }
 
-        private Employee JoeyFirstOrDefault(IEnumerable<Employee> employees)
+        [Test]
+        public void get_null_when_is_empty()
         {
-            throw new NotImplementedException();
+            var numbers = new List<int?>();
+
+            var actual = numbers.JoeyFirstOrDefault();
+
+            Assert.IsNull(actual);
+        }
+
+        [Test]
+        public void number_is_empty()
+        {
+            var numbers = new List<int>();
+
+            var actual = numbers.JoeyFirstOrDefault();
+
+            Assert.AreEqual(0, actual);
         }
     }
 }
